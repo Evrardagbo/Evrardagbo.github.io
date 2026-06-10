@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Exo & Cours – Evrard AGBO</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root{
+      --rose:#e91e8c;--rose-light:#f472b6;--rose-soft:#fce4f3;
+      --rose-dark:#c2185b;--purple:#9b59b6;--bg:#fff5fb;
+      --card:#fff;--text:#3a1a2e;--sub:#b06090;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(160deg, #ffe6f0 0%, #fff0f5 50%, #fce4f0 100%);
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      background: #ff6eb4;
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      gap: 10px;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 3px 10px rgba(255,110,180,0.4);
+    }
+    .nav-logo { font-size: 1.1rem; font-weight: 900; color: white; line-height: 1.2; margin-right: 6px; }
+    .nav-logo span { color: #ffe066; display: block; }
+    nav a {
+      text-decoration: none;
+      background: #ffe066;
+      color: #333;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 8px 16px;
+      border-radius: 50px;
+      transition: transform 0.2s, background 0.2s;
+    }
+    nav a:hover { transform: scale(1.07); background: #ffd700; }
+    nav a.active { background: white; color: #ff6eb4; }
+
+    /* TABS */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      padding: 24px 16px 10px;
+    }
+    .tab-btn {
+      padding: 12px 28px;
+      border-radius: 50px;
+      border: none;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .tab-btn.active {
+      background: #ff6eb4;
+      color: white;
+      transform: scale(1.06);
+      box-shadow: 0 6px 18px rgba(255,110,180,0.5);
+    }
+    .tab-btn:not(.active) {
+      background: #ffe066;
+      color: #333;
+    }
+    .tab-btn:not(.active):hover { transform: scale(1.04); }
+
+    /* PAGE */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* HERO */
+    .hero { text-align: center; padding: 30px 20px 14px; }
+    .hero-emoji { font-size: 2.8rem; display: block; margin-bottom: 8px; animation: bounce 1.5s infinite; }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+    .hero h1 { font-size: 1.9rem; font-weight: 900; color: #ff6eb4; text-shadow: 2px 2px 0 #ffe066; margin-bottom: 8px; }
+    .hero p { font-size: 0.95rem; color: #666; max-width: 360px; margin: 0 auto; line-height: 1.6; }
+
+    /* SECTION CARD */
+    .section-card {
+      background: #ff79bc;
+      border-radius: 24px;
+      margin: 18px 14px;
+      padding: 22px 16px 28px;
+      box-shadow: 0 6px 24px rgba(255,110,180,0.3);
+      animation: fadeUp 0.4s ease both;
+    }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: white;
+      text-align: center;
+      text-shadow: 1px 2px 0 rgba(0,0,0,0.15);
+      margin-bottom: 6px;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 1px;
+    }
+    .section-desc {
+      font-size: 0.93rem;
+      color: white;
+      text-align: center;
+      line-height: 1.65;
+      margin-bottom: 22px;
+      padding: 0 4px;
+    }
+
+    /* GRID */
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 14px; }
+    .card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .card-img-wrap {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid white;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+      background: #ffe6f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover .card-img-wrap { transform: scale(1.08); box-shadow: 0 8px 22px rgba(0,0,0,0.3); }
+    .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .card-img-wrap .ico { font-size: 2.8rem; }
+    .card-label { font-size: 1rem; font-weight: 800; color: #003aff; text-decoration: underline; text-underline-offset: 3px; }
+    .card:hover .card-label { color: #0022cc; }
+
+    /* COURS CARD (rectangulaire) */
+    .cours-card {
+      background: white;
+      border-radius: 18px;
+      margin: 18px 14px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(255,110,180,0.25);
+      animation: fadeUp 0.4s ease both;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      display: block;
+    }
+    .cours-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(255,110,180,0.4); }
+    .cours-card-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      background: #ffd6ec;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+    }
+    .cours-card-body { padding: 16px 18px 20px; }
+    .cours-card-tag {
+      display: inline-block;
+      background: #ff6eb4;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 50px;
+      margin-bottom: 8px;
+    }
+    .cours-card-title { font-size: 1.1rem; font-weight: 800; color: #333; margin-bottom: 6px; }
+    .cours-card-desc { font-size: 0.87rem; color: #777; line-height: 1.55; }
+    .cours-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid #f0d0e8;
+    }
+    .cours-card-footer span { font-size: 0.8rem; color: #aaa; }
+    .cours-card-footer .btn-voir {
+      background: #ffe066;
+      color: #333;
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 6px 16px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .cours-card-footer .btn-voir:hover { background: #ffd700; }
+
+    /* STARS */
+    .stars { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; overflow:hidden; }
+    .star { position:absolute; font-size:1.1rem; opacity:0.4; animation:twinkle 3s infinite; }
+    @keyframes twinkle { 0%,100%{opacity:0.3;transform:scale(1)} 50%{opacity:0.7;transform:scale(1.3)} }
+
+    .spacer { height: 40px; }
+    footer{background:linear-gradient(135deg,var(--rose-dark),var(--purple));color:rgba(255,255,255,.8);text-align:center;padding:16px;font-size:.83rem;margin-top:10px}
+    footer b{color:#ffe0f5}
+
+     Avec ce CSS (adapté au thème rose) :
+.documents { padding: 20px; }
+
+.doc-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 12px 20px;
+  margin-bottom: 12px;
+}
+
+.btn-dl {
+  background: linear-gradient(135deg, #ff6b9d, #c44569);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: opacity 0.3s;
+}
+
+.btn-dl:hover { opacity: 0.85; }
+  </style>
+</head>
+<body>
+
+  <div class="stars">
+    <span class="star" style="top:8%;left:5%;animation-delay:0s">✨</span>
+    <span class="star" style="top:18%;right:7%;animation-delay:0.8s">⭐</span>
+    <span class="star" style="top:42%;left:3%;animation-delay:1.2s">✨</span>
+    <span class="star" style="top:65%;right:5%;animation-delay:0.4s">⭐</span>
+    <span class="star" style="top:82%;left:6%;animation-delay:1.7s">✨</span>
+  </div>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-logo">site <span>Web</span></div>
+    <a href="index.html">Accueil</a>
+    <a href="projet.html">Projet</a>
+    <a href="voir_plus.html">À propos</a>
+    <a href="exercices&cours.html" class="active">Exo&amp;Cours</a>
+  </nav>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="showPage('exo')">✏️ Exercices</button>
+    <button class="tab-btn" onclick="showPage('cours')">📚 Cours</button>
+  </div>
+
+  <!-- ══════════ PAGE EXERCICES ══════════ -->
+  <div id="page-exo" class="page active">
+
+    <div class="hero">
+      <span class="hero-emoji">💪</span>
+      <h1>Mes Exercices</h1>
+      <p>Des exercices pratiques pour progresser pas à pas. Chaque défi m'a appris quelque chose de nouveau 🚀</p>
+    </div>
+
+    <!-- HTML & CSS -->
+    <div class="section-card" id="exohtml">
+      <div class="section-title">HTML &amp; CSS</div>
+      <div class="section-desc">
+        Ces exercices m'ont permis de maîtriser la structure et le style des pages web.
+        Du simple centrage en CSS aux mises en page flexbox complexes 🎨 — chaque exercice
+        est une mini-victoire ! Clique sur les images pour voir le résultat 👇
+      </div>
+      <div class="grid">
+        <a href="Projet/Mes_débuts/Mes_débuts.html" class="card"><div class="card-img-wrap"><img src="Photos/capture1.jpg" alt="Projet 1"></div><span class="card-label">Exercice 1</span></a>
+        <a href="Projet/Boulot/boulot.html" class="card"><div class="card-img-wrap"><img src="Photos/capture2.jpg" alt="Projet 1"></div><span class="card-label">Exercice 2</span></a>
+        <a href="Projet/Ma creation facebook/facebook.html" class="card"><div class="card-img-wrap"><img src="Photos/capture3.jpg" alt="Projet 1"></div><span class="card-label">Exercice 3</span></a>
+        <a href="Projet/Ma creation google/google.html" class="card"><div class="card-img-wrap"><img src="Photos/capture4.jpg" alt="Projet 1"></div><span class="card-label">Exercice 4</span></a>
+        <a href="Projet/Mini projet/Mini projet.html" class="card"><div class="card-img-wrap"><img src="Photos/capture5.jpg" alt="Projet 1"></div><span class="card-label">Exercice 5</span></a>
+        <a href="Projet/Page spotify/page spotify.html" class="card"><div class="card-img-wrap"><img src="Photos/capture6.jpg" alt="Projet 1"></div><span class="card-label">Exercice 6</span></a>
+        <a href="Projet/Passe temps/Passe temps.html" class="card"><div class="card-img-wrap"><img src="Photos/capture7.jpg" alt="Projet 1"></div><span class="card-label">Exercice 7</span></a>
+        <a href="Projet/Projet3/projet3.html" class="card"><div class="card-img-wrap"><img src="Photos/capture8.jpg" alt="Projet 1"></div><span class="card-label">Exercice 8</span></a>
+        <a href="Projet/Projet4/projet 4.html" class="card"><div class="card-img-wrap"><img src="Photos/capture9.jpg" alt="Projet 1"></div><span class="card-label">Exercice 9</span></a>
+        <a href="Projet/Projet2/Projet 2.html" class="card"><div class="card-img-wrap"><img src="Photos/capture10.jpg" alt="Projet 1"></div><span class="card-label">Exercice 10</span></a>
+        <a href="Videos/video1.mp4" class="card"><div class="card-img-wrap"><img src="Photos/photo1.jpg" alt="Projet 1"></div><span class="card-label">Exercice 11</span></a>
+        <a href="Videos/video2.mp4" class="card"><div class="card-img-wrap"><img src="Photos/photo2.jpg" alt="Projet 1"></div><span class="card-label">Exercice 12</span></a>
+        <a href="Videos/video3.mp4" class="card"><div class="card-img-wrap"><img src="Photos/photo3.jpg" alt="Projet 1"></div><span class="card-label">Exercice 13</span></a>
+        <a href="Photos/photo4.jpg" class="card"><div class="card-img-wrap"><img src="Photos/photo4.jpg" alt="Projet 1"></div><span class="card-label">Exercice 14</span></a>
+        <a href="Projet/exohtml.pdf" class="card"><div class="card-img-wrap"><img src="Photos/exohtml.png" alt="Projet 1"></div><span class="card-label">Exercice 15</span></a>
+      </div>
+    </div>
+
+    <!-- PHP & MySQL -->
+    <div class="section-card" id="exophp">
+      <div class="section-title">PHP &amp; MySQL</div>
+      <div class="section-desc">
+        Formulaires, bases de données, requêtes SQL… Ces exercices m'ont plongé dans
+        le développement côté serveur 🐘. Pas toujours facile, mais tellement satisfaisant
+        quand ça marche ! Clique pour explorer 👇
+      </div>
+      <div class="grid">
+        <a href="Cours/exophp.pdf" class="card"><div class="card-img-wrap"><img src="Photos/exophp.png" alt="Exercice 1"></div><span class="card-label">Exercice 1</span></a>
+        <a href="Videos/php1.mp4" class="card"><div class="card-img-wrap"><img src="Photos/php.png" alt="Exercice 2"></div><span class="card-label">Exercice 2</span></a>
+        <a href="Videos/php2.mp4" class="card"><div class="card-img-wrap"><img src="Photos/php.png" alt="Exercice 3"></div><span class="card-label">Exercice 3</span></a>
+        <a href="Videos/php3.mp4" class="card"><div class="card-img-wrap"><img src="Photos/php.png" alt="Exercice 4"></div><span class="card-label">Exercice 4</span></a>
+        <a href="Videos/php4.mp4" class="card"><div class="card-img-wrap"><img src="Photos/php.png" alt="Exercice 5"></div><span class="card-label">Exercice 5</span></a>
+        <a href="Videos/php5.mp4" class="card"><div class="card-img-wrap"><img src="Photos/php1.png" alt="Exercice 6"></div><span class="card-label">Exercice 6</span></a>
+      </div>
+    </div>
+
+    <!-- Python -->
+    <div class="section-card" id="exopython">
+      <div class="section-title">Python 🐍</div>
+      <div class="section-desc">
+        Algorithmes, fonctions, boucles… Python m'a ouvert les portes de la logique
+        de programmation pure 🤓. Ces exercices vont du plus simple au plus tordu —
+        bonne chance si tu les essaies ! Clique pour voir 👇
+      </div>
+      <div class="grid">
+        <a href="Projet/exopython.pdf" class="card"><div class="card-img-wrap"><img src="Photos/exopython.png" alt="Exercice 1"></div><span class="card-label">Exercice 1</span></a>
+        <a href="Photos/capture11.jpg" class="card"><div class="card-img-wrap"><img src="Photos/projetpy1.png" alt="Exercice 2"></div><span class="card-label">Exercice 2</span></a>
+        <a href="Projet/projetpy1.jpg" class="card"><div class="card-img-wrap"><img src="Photos/projetpy2.png" alt="Exercice 2"></div><span class="card-label">Exercice 3</span></a>
+        <a href="Projet/projetpy2.jpg" class="card"><div class="card-img-wrap"><img src="Photos/projetpy3.png" alt="Exercice 2"></div><span class="card-label">Exercice 4</span></a>
+        <a href="Projet/projetpy3.jpg" class="card"><div class="card-img-wrap"><img src="Photos/projetpy4.png" alt="Exercice 2"></div><span class="card-label">Exercice 5</span></a>
+        <a href="Videos/py1.mp4" class="card"><div class="card-img-wrap"><img src="Photos/py1.png" alt="Exercice 6"></div><span class="card-label">Exercice 6</span></a>
+        <a href="Videos/py2.mp4" class="card"><div class="card-img-wrap"><img src="Photos/py1.png" alt="Exercice 7"></div><span class="card-label">Exercice 7</span></a>
+        <a href="Videos/py3.mp4" class="card"><div class="card-img-wrap"><img src="Photos/py3.png" alt="Exercice 8"></div><span class="card-label">Exercice 8</span></a>
+        <a href="Videos/py4.mp4" class="card"><div class="card-img-wrap"><img src="Photos/py4.png" alt="Exercice 9"></div><span class="card-label">Exercice 9</span></a>
+      </div>
+    </div>
+
+    <div class="spacer"></div>
+  </div>
+
+  <!-- ══════════ PAGE COURS ══════════ -->
+  <div id="page-cours" class="page">
+
+    <div class="hero">
+      <span class="hero-emoji">📚</span>
+      <h1>Mes Cours</h1>
+      <p>Des ressources et notes de cours que j'ai compilées pour apprendre le développement web 🎓</p>
+    </div>
+
+    <!-- Cours HTML & CSS -->
+    <a href="Cours/courhtml&css.pdf" class="cours-card" style="animation-delay:0.1s">
+      <div class="cours-card-img"><img src="Photos/cour1.jpg" width="300px" height="159vh"></div>
+      <div class="cours-card-body">
+        <span class="cours-card-tag">HTML &amp; CSS</span>
+        <div class="cours-card-title">Les bases du Web</div>
+        <div class="cours-card-desc">Balises HTML, sélecteurs CSS, box model, flexbox, responsive design… tout ce qu'il faut pour construire une page web solide.</div>
+        <div class="cours-card-footer">
+          <span>📄 12 chapitres</span>
+          <button class="btn-voir">Voir le cours</button>
+        </div>
+      </div>
+    </a>
+
+    <!-- Cours HTML & CSS -->
+    <a href="Cours/commande_web.pdf" class="cours-card" style="animation-delay:0.1s">
+      <div class="cours-card-img"><img src="Photos/courweb.png" width="300px" height="159vh"></div>
+      <div class="cours-card-body">
+        <span class="cours-card-tag">HTML &amp; CSS</span>
+        <div class="cours-card-title">Les bases du Web</div>
+        <div class="cours-card-desc">Balises HTML, sélecteurs CSS, box model, flexbox, responsive design… tout ce qu'il faut pour construire une page web solide.</div>
+        <div class="cours-card-footer">
+          <span>Etapes pour mise en ligne de ton site web</span>
+          <button class="btn-voir">Voir le cours</button>
+        </div>
+      </div>
+    </a>
+
+    <!-- Cours PHP -->
+    <a href="Cours/courphp.pdf" class="cours-card" style="animation-delay:0.2s">
+      <div class="cours-card-img"><img src="Photos/cour2.jpg"width="300px" height="159vh"></div>
+      <div class="cours-card-body">
+        <span class="cours-card-tag">PHP &amp; MySQL</span>
+        <div class="cours-card-title">Développement côté serveur</div>
+        <div class="cours-card-desc">Variables, fonctions, PDO, requêtes SQL, sessions… Une introduction complète au back-end avec PHP et MySQL.</div>
+        <div class="cours-card-footer">
+          <span>📄 8 chapitres</span>
+          <button class="btn-voir">Voir le cours</button>
+        </div>
+      </div>
+    </a>
+
+    <!-- Cours Python -->
+    <a href="Cours/courpython.pdf" class="cours-card" style="animation-delay:0.3s">
+      <div class="cours-card-img"><img src="Photos/cour3.jpg"width="300px" height="159vh"></div>
+      <div class="cours-card-body">
+        <span class="cours-card-tag">Python</span>
+        <div class="cours-card-title">Initiation à Python</div>
+        <div class="cours-card-desc">Listes, boucles, fonctions, classes… Python est un langage puissant et polyvalent, parfait pour débuter la programmation.</div>
+        <div class="cours-card-footer">
+          <span>📄 10 chapitres</span>
+          <button class="btn-voir">Voir le cours</button>
+        </div>
+      </div>
+    </a>
+
+     <!-- Cours Python -->
+    <a href="Cours/recapitulatif_python.pdf" class="cours-card" style="animation-delay:0.3s">
+      <div class="cours-card-img"><img src="Photos/courpy.png"width="300px" height="159vh"></div>
+      <div class="cours-card-body">
+        <span class="cours-card-tag">Python Week-end</span>
+        <div class="cours-card-title">Initiation à Python</div>
+        <div class="cours-card-desc">Listes, boucles, fonctions, classes… Python est un langage puissant et polyvalent, parfait pour débuter la programmation.</div>
+        <div class="cours-card-footer">
+          <span>Pour le week end</span>
+          <button class="btn-voir">Voir le cours</button>
+        </div>
+      </div>
+    </a>
+
+     <!-- Cours Python -->
+    <a href="Cours/cours_detail_py.pdf" class="cours-card" style="animation-delay:0.3s">
+      <div class="cours-card-img"><img src="Photos/cour_detail.png"width="300px" height="159vh"></div>
+      <div class="cours-card-body">
+        <span class="cours-card-tag">Python Cahier</span>
+        <div class="cours-card-title">Initiation à Python</div>
+        <div class="cours-card-desc">Listes, boucles, fonctions, classes… Python est un langage puissant et polyvalent, parfait pour débuter la programmation.</div>
+        <div class="cours-card-footer">
+          <span>📄 12 Etapes</span>
+          <button class="btn-voir">Voir le cours</button>
+        </div>
+      </div>
+    </a>
+
+    <!-- Cours Tkinter -->
+    <a href="Cours/courtkinter.pdf" class="cours-card" style="animation-delay:0.3s">
+      <div class="cours-card-img"><img src="Photos/cour4.jpg" width="300px" height="159vh"></div>
+      <div class="cours-card-body">
+        <span class="cours-card-tag">Tkinter</span>
+        <div class="cours-card-title">Initiation à Python tkinter</div>
+        <div class="cours-card-desc">Listes, boucles, fonctions, classes… Python est un langage puissant et polyvalent, parfait pour débuter la programmation.</div>
+        <div class="cours-card-footer">
+          <span>📄 10 chapitres</span>
+          <button class="btn-voir">Voir le cours</button>
+        </div>
+      </div>
+    </a>
+
+    <!-- Cours JavaScript -->
+    <a href="Cours/courjavascript.pdf" class="cours-card" style="animation-delay:0.4s">
+      <div class="cours-card-img"><img src="Photos/cour5.jpg" width="300px" height="159vh"></div>
+      <div class="cours-card-body">
+        <span class="cours-card-tag">JavaScript</span>
+        <div class="cours-card-title">Rendre les pages interactives</div>
+        <div class="cours-card-desc">DOM, événements, fetch API, animations… JavaScript donne vie aux pages web et rend l'expérience utilisateur magique ✨</div>
+        <div class="cours-card-footer">
+          <span>📄 9 chapitres</span>
+          <button class="btn-voir">Voir le cours</button>
+        </div>
+      </div>
+    </a>
+
+    <section class="documents">
+  <h2>📂 Autres Documents</h2>
+
+  <div class="doc-card">
+    <span>Cours programmation R</span>
+    <a href="Cours/cour_R.pdf" download class="btn-dl">⬇ Télécharger</a>
+  </div>
+  <div class="doc-card">
+    <span>📄 Modules d'erreurs pour python</span>
+    <a href="Cours/cour_surplus_py.pdf" download class="btn-dl">⬇ Télécharger</a>
+  </div>
+  <div class="doc-card">
+    <span>Module pour C</span>
+    <a href="Cours/cour_C.pdf" download class="btn-dl">⬇ Télécharger</a>
+  </div>
+
+
+</section>
+
+    <div class="spacer"></div>
+  </div>
+<footer>Fait avec ❤️ par <b>Evrard</b> </footer>
+  <script>
+    function showPage(name) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('page-' + name).classList.add('active');
+      event.target.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>

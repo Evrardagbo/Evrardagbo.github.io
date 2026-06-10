@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mon site Web – Evrard AGBO</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root{
+      --rose:#e91e8c;--rose-light:#f472b6;--rose-soft:#fce4f3;
+      --rose-dark:#c2185b;--purple:#9b59b6;--bg:#fff5fb;
+      --card:#fff;--text:#3a1a2e;--sub:#b06090;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #fce7f3;
+    }
+
+    /* ══ NAVBAR ══ */
+    .navbar {
+      position: sticky;
+      top: 0;
+      background: rgba(244, 114, 182, 0.95);
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 8px;
+      padding: 10px 16px;
+      z-index: 100;
+      box-shadow: 0 3px 10px rgba(255,110,180,0.4);
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .navbar::-webkit-scrollbar { display: none; }
+
+    .navbar .logo {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(1rem, 4vw, 1.3rem);
+      color: #fff;
+      letter-spacing: 1px;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .navbar .logo span { color: #facc15; }
+
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+      flex-shrink: 0;
+    }
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: clamp(.75rem, 2.5vw, .88rem);
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 2px solid transparent;
+      transition: all .25s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover,
+    .nav-links a.active,
+    .nav-links a.activer {
+      background: #facc15;
+      color: #1e1b4b;
+      border-color: #ca8a04;
+    }
+
+    /* ══ HERO ══ */
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 48px 20px 100px;
+      background: linear-gradient(-45deg, #fce7f3, #fdf2c4, #e0f2fe, #fce7f3, #fdf6e3, #fce4ec);
+      background-size: 400% 400%;
+      animation: bgShift 10s ease infinite;
+    }
+    @keyframes bgShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .hero-wave {
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 100%; overflow: hidden; line-height: 0;
+    }
+    .hero-wave svg { display: block; width: 100%; }
+
+    /* Bulles */
+    .bubbles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .bubble {
+      position: absolute; bottom: -80px; border-radius: 50%;
+      opacity: .18; animation: rise linear infinite; z-index: 0;
+    }
+    .bubble:nth-child(1)  { width:40px; height:40px; left:5%;   background:#f472b6; animation-duration:7s;  animation-delay:0s;   }
+    .bubble:nth-child(2)  { width:60px; height:60px; left:15%;  background:#facc15; animation-duration:9s;  animation-delay:1s;   }
+    .bubble:nth-child(3)  { width:25px; height:25px; left:28%;  background:#f472b6; animation-duration:6s;  animation-delay:2s;   }
+    .bubble:nth-child(4)  { width:50px; height:50px; left:40%;  background:#a5f3fc; animation-duration:11s; animation-delay:.5s;  }
+    .bubble:nth-child(5)  { width:35px; height:35px; left:55%;  background:#facc15; animation-duration:8s;  animation-delay:3s;   }
+    .bubble:nth-child(6)  { width:70px; height:70px; left:68%;  background:#f472b6; animation-duration:13s; animation-delay:1.5s; }
+    .bubble:nth-child(7)  { width:20px; height:20px; left:80%;  background:#bbf7d0; animation-duration:6s;  animation-delay:4s;   }
+    .bubble:nth-child(8)  { width:45px; height:45px; left:90%;  background:#facc15; animation-duration:10s; animation-delay:2.5s; }
+    @keyframes rise {
+      0%   { transform: translateY(0) scale(1);       opacity:.18; }
+      80%  { opacity: .12; }
+      100% { transform: translateY(-110vh) scale(1.1); opacity:0; }
+    }
+
+    /* Étoiles */
+    .stars { position: absolute; inset:0; pointer-events:none; }
+    .star { position:absolute; font-size:1.4rem; animation:twinkle 3s ease-in-out infinite; }
+    .star:nth-child(1){top:8%;  left:7%;  animation-delay:0s;}
+    .star:nth-child(2){top:15%; right:10%;animation-delay:.8s;}
+    .star:nth-child(3){top:60%; left:4%;  animation-delay:1.5s;}
+    .star:nth-child(4){top:70%; right:6%; animation-delay:.4s;}
+    .star:nth-child(5){top:30%; left:88%; animation-delay:2s;}
+    @keyframes twinkle {
+      0%,100%{opacity:.6; transform:scale(1) rotate(0deg);}
+      50%    {opacity:1;  transform:scale(1.3) rotate(15deg);}
+    }
+
+    /* Contenu hero au-dessus des bulles */
+    .badge-new, .hero-title, .hero-sub, .pills, .hero-cta, .scroll-hint {
+      position: relative; z-index: 1;
+    }
+
+    .badge-new {
+      display: inline-block;
+      background: #facc15; color: #1e1b4b;
+      font-family: 'Fredoka One', cursive;
+      font-size: .85rem; padding: 4px 14px;
+      border-radius: 999px; box-shadow: 3px 3px 0 #ca8a04;
+      margin-bottom: 18px; animation: popIn .5s .2s ease both;
+      letter-spacing: 1px;
+    }
+
+    .hero-title {
+      font-family: 'Fredoka One', cursive;
+      text-align: center; line-height: 1.15;
+      animation: fadeDown .7s .3s ease both;
+    }
+    .hero-title .line1 { font-size: clamp(2.2rem, 10vw, 5rem);  color:#f472b6; display:block; text-shadow:3px 4px 0 #be185d; }
+    .hero-title .line2 { font-size: clamp(1.8rem, 8vw,  4rem);  color:#facc15; display:block; text-shadow:3px 4px 0 #ca8a04; letter-spacing:3px; }
+    .hero-title .line3 { font-size: clamp(1.8rem, 8vw,  4rem);  color:#f472b6; display:block; text-shadow:3px 4px 0 #be185d; }
+
+    .cursor {
+      display:inline-block; width:4px; height:.9em;
+      background:#facc15; margin-left:4px; vertical-align:middle;
+      animation:blink .8s step-end infinite;
+    }
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+    .hero-sub {
+      margin-top:20px;
+      font-size: clamp(.9rem, 3vw, 1.2rem);
+      color:#831843; font-weight:800; text-align:center;
+      animation: fadeDown .7s .5s ease both;
+      max-width: 360px;
+    }
+
+    .pills {
+      display:flex; flex-wrap:wrap; gap:8px;
+      justify-content:center; margin-top:24px;
+      animation: fadeUp .7s .6s ease both;
+    }
+    .pill {
+      background:rgba(255,255,255,.7); border:2px solid #f9a8d4;
+      padding:7px 14px; border-radius:999px;
+      font-size: clamp(.75rem, 2.5vw, .85rem);
+      font-weight:800; color:#831843;
+      backdrop-filter:blur(4px);
+      box-shadow:0 2px 8px rgba(244,114,182,.2);
+      transition:transform .2s, box-shadow .2s;
+    }
+    .pill a { text-decoration:none; color:inherit; }
+    .pill:hover { transform:translateY(-3px) scale(1.05); box-shadow:0 6px 16px rgba(244,114,182,.35); }
+
+    .hero-cta {
+      display:flex; gap:12px; flex-wrap:wrap;
+      justify-content:center; margin-top:28px;
+      animation: fadeUp .7s .7s ease both;
+    }
+    .btn-primary {
+      background:#facc15; color:#1e1b4b;
+      font-family:'Fredoka One',cursive;
+      font-size: clamp(.95rem, 3vw, 1.1rem);
+      padding:12px 26px; border-radius:999px;
+      text-decoration:none; box-shadow:4px 5px 0 #ca8a04;
+      transition:transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { transform:translateY(-3px); box-shadow:4px 8px 0 #ca8a04; }
+    .btn-secondary {
+      background:transparent; color:#be185d;
+      font-family:'Fredoka One',cursive;
+      font-size: clamp(.95rem, 3vw, 1.1rem);
+      padding:12px 26px; border-radius:999px;
+      text-decoration:none; border:3px solid #f472b6;
+      transition:all .2s;
+    }
+    .btn-secondary:hover { background:#f472b6; color:#fff; transform:translateY(-3px); }
+
+    .scroll-hint {
+      position:absolute; bottom:70px; left:50%;
+      transform:translateX(-50%);
+      display:flex; flex-direction:column; align-items:center; gap:6px;
+      opacity:.6; animation: fadeUp 1s 1.2s ease both;
+    }
+    .scroll-hint span { font-size:.75rem; font-weight:800; color:#be185d; letter-spacing:1px; }
+    .scroll-arrow {
+      width:24px; height:24px;
+      border-right:3px solid #f472b6; border-bottom:3px solid #f472b6;
+      transform:rotate(45deg); animation:bounce 1.4s ease infinite;
+    }
+    @keyframes bounce {
+      0%,100%{transform:rotate(45deg) translateY(0);}
+      50%    {transform:rotate(45deg) translateY(6px);}
+    }
+
+    @keyframes fadeDown { from{opacity:0;transform:translateY(-28px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeUp   { from{opacity:0;transform:translateY(28px)}  to{opacity:1;transform:translateY(0)} }
+    @keyframes popIn    { 0%{opacity:0;transform:scale(.4)} 80%{transform:scale(1.1)} 100%{opacity:1;transform:scale(1)} }
+
+    /* ══ PAGE CONTENT ══ */
+    .page-content {
+      padding: 30px 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ══ PROFIL CARD ══ */
+    .profil-card {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 24px;
+      background: white;
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 6px 24px rgba(244,114,182,.2);
+      margin-bottom: 40px;
+    }
+    .profil-texte {
+      flex: 1 1 220px;
+      font-size: clamp(.9rem, 2.5vw, 1rem);
+      color: #4a1942;
+      line-height: 1.7;
+    }
+    .profil-texte a {
+      display: inline-block;
+      margin-top: 12px;
+      background: #f472b6;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 999px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: background .2s;
+    }
+    .profil-texte a:hover { background: #be185d; }
+    .profil-photo {
+      flex: 0 0 auto;
+      width: clamp(100px, 25vw, 160px);
+    }
+    .profil-photo img {
+      width: 100%; border-radius: 50%;
+      border: 4px solid #f9a8d4;
+      box-shadow: 0 4px 16px rgba(244,114,182,.3);
+    }
+
+    /* ══ SECTIONS ══ */
+    section {
+      margin-bottom: 48px;
+    }
+    section h2 {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(1.8rem, 7vw, 3rem);
+      color: gold;
+      margin-bottom: 16px;
+    }
+    .html_css {
+      background: white;
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(244,114,182,.15);
+    }
+    .html_css h3 {
+      font-size: clamp(1rem, 3vw, 1.3rem);
+      color: #be185d;
+      margin-bottom: 12px;
+    }
+    .html_css p {
+      font-size: clamp(.85rem, 2.5vw, .95rem);
+      color: #5a1a4a;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    /* ══ GRILLES PROJETS & EXERCICES ══ */
+    .Projets, .Exercices {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 16px;
+    }
+    .Projets a, .Exercices a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: clamp(.78rem, 2vw, .88rem);
+      color: #831843;
+      background: #fce7f3;
+      border-radius: 14px;
+      padding: 12px 8px;
+      border: 2px solid #f9a8d4;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .Projets a:hover, .Exercices a:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(244,114,182,.3);
+    }
+    .Projets img, .Exercices img, .cap {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 2px solid #f9a8d4;
+    }
+    .bouger ,.fin{
+      display:flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .bouger a ,.fin a{
+      color:black;
+      background:#facc15;
+    }
+
+    /* ══ RESPONSIVE ══ */
+    @media (max-width: 480px) {
+      .profil-card { flex-direction: column; align-items: center; text-align: center; }
+      .profil-photo { width: 110px; }
+      .Projets, .Exercices { grid-template-columns: repeat(2, 1fr); }
+      .hero-cta { flex-direction: column; align-items: center; }
+      .btn-primary, .btn-secondary { width: 100%; text-align: center; }
+    }
+    @media (min-width: 481px) and (max-width: 768px) {
+      .Projets, .Exercices { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (min-width: 769px) {
+      .Projets, .Exercices { grid-template-columns: repeat(4, 1fr); }
+    }
+    footer{background:linear-gradient(135deg,var(--rose-dark),var(--purple));color:rgba(255,255,255,.8);text-align:center;padding:16px;font-size:.83rem;margin-top:10px}
+    footer b{color:#ffe0f5}
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAVBAR ══ -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">Mon site <span>Web</span> 💻</a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Accueil</a></li>
+      <li><a href="projet.html" class="active">Projet</a></li>
+      <li><a href="voir_plus.html" class="active">À propos</a></li>
+      <li><a href="Exercices&cours.html" class="activer">Exo &amp; Cours</a></li>
+    </ul>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <header class="hero">
+    <div class="bubbles">
+      <div class="bubble"></div><div class="bubble"></div>
+      <div class="bubble"></div><div class="bubble"></div>
+      <div class="bubble"></div><div class="bubble"></div>
+      <div class="bubble"></div><div class="bubble"></div>
+    </div>
+    <div class="stars">
+      <span class="star">✨</span><span class="star">⭐</span>
+      <span class="star">✨</span><span class="star">💫</span>
+      <span class="star">⭐</span>
+    </div>
+
+    <div class="badge-new">🚀 Nouveau site en ligne !</div>
+
+    <h1 class="hero-title">
+      <span class="line1">Ma</span>
+      <span class="line2" id="typed-text">distraction</span>
+      <span class="line3">préférée 😇<span class="cursor"></span></span>
+    </h1>
+
+    <p class="hero-sub">Le web, la programmation &amp; pleines de surprises t'attendent ici 🎯</p>
+
+    <div class="pills">
+      <span class="pill"><a href="projet.html#page-html"> 💻 HTML &amp; CSS</a></span>
+      <span class="pill"><a href="projet.html"> 🐘 PHP &amp; MySQL</a></span>
+      <span class="pill"><a href="projet.html"> 🐍 Python</a></span>
+      <span class="pill"><a href="https://openclassrooms.com/fr/courses/1603881-creez-votre-site-web-avec-html5-et-css3/8061253-tirez-un-maximum-de-ce-cours">📚 Cours gratuits</a></span>
+      <span class="pill"><a href="projet.html"> 🛠️ Projets réels</a></span>
+    </div>
+
+    <div class="hero-cta">
+      <a href="Exercices&cours.html" class="btn-primary">📖 Voir les cours</a>
+      <a href="voir_plus.html" class="btn-secondary">👤 À propos de moi</a>
+    </div>
+
+    <div class="scroll-hint">
+      <span>DÉFILER</span>
+      <div class="scroll-arrow"></div>
+    </div>
+
+    <div class="hero-wave">
+      <svg viewBox="0 0 1200 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0,40 C200,80 400,0 600,40 C800,80 1000,0 1200,40 L1200,80 L0,80 Z" fill="#fce7f3"/>
+      </svg>
+    </div>
+  </header>
+
+  <!-- ══ CONTENU ══ -->
+  <div class="page-content">
+    <main class="container">
+
+      <!-- Profil -->
+      <article>
+        <div class="profil-card">
+          <div class="profil-texte">
+            <p>Moi c'est Evrard AGBO.<br>
+              Ce site est créé dans le but d'inciter toi mon ou ma ☺️ camarade à savoir dès aujourd'hui que le monde de la programmation est très instructif et plein de surprise.<br>
+              Bref, fais comme moi et cré(e) quelque chose.</p>
+            <a href="voir_plus.html">Voir plus</a>
+          </div>
+          <div class="profil-photo">
+            <a href="image1.jpg"><img src="image1.jpg" alt="Evrard AGBO"></a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Projets -->
+      <section>
+        <h2>Projets</h2>
+        <div class="html_css">
+          <h3>HTML &amp; CSS</h3>
+          <p>Ces deux langages sont les plus simples mais sont vraiment complexes, surtout le CSS 😁. Voici quelques sites web que j'ai créé uniquement avec ces deux langages 😲, ça vous tente d'essayer non 😉. Allez-y, cliquez sur les images 👇</p>
+          <div class="Projets">
+            <a href="Projet/Mes_débuts/Mes_débuts.html"><img src="Photos/capture1.jpg" alt="Projet 1">Projet 1</a>
+            <a href="Projet/Boulot/boulot.html"><img src="Photos/capture2.jpg" alt="Projet 2">Projet 2</a>
+            <a href="Projet/Ma creation facebook/facebook.html"><img src="Photos/capture3.jpg" alt="Projet 3">Projet 3</a>
+            <a href="Projet/Ma creation google/google.html"><img src="Photos/capture4.jpg" alt="Projet 4">Projet 4</a>
+            <a href="Projet/Mini projet/Mini projet.html"><img src="Photos/capture5.jpg" alt="Projet 5">Projet 5</a>
+            <a href="Projet/Page spotify/page spotify.html"><img src="Photos/capture6.jpg" alt="Projet 6">Projet 6</a>
+            <a href="Projet/Passe temps/Passe temps.html"><img src="Photos/capture7.jpg" alt="Projet 7">Projet 7</a>
+            <a href="Projet/Projet3/projet3.html"><img src="Photos/capture8.jpg" alt="Projet 8">Projet 8</a>
+            <a href="Projet/Projet4/projet 4.html"><img src="Photos/capture9.jpg" alt="Projet 9">Projet 9</a>
+           <a href="Projet/Projet2/Projet 2.html"><img src="Photos/capture10.jpg" alt="Projet 10">Projet 10</a>
+           <div class="bouger"><a href="projet.html">Découvrir plus</a></div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+    
+        <div class="html_css">
+          <h3>PHP</h3>
+          <p>Ce langage est celui sur lequel on descend en même temps lorsqu'on quitte html et css puisse qu'il renforce nos connaissances et nous ouvre autre porte de la programmation. Voici quelque uns de mes debuts👇</p>
+          <div class="Projets">
+            <a href="Projet/"><img src="" alt="Projet 1">Projet 1</a>
+           <div class="bouger"><a href="projet.html">Découvrir plus</a></div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="html_css">
+          <h3>Python</h3>
+          <p>Ce langage c'est le père de tous , c'est la où on ne finit jamais d'apprendre. 👇</p>
+          <div class="Projets">
+           <a href="Projet/newfile.py"><img src="Photos/newfile.png" alt="Projet 1">Projet 1</a>
+           
+           <div class="bouger"><a href="projet.html">Découvrir plus</a></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Exercices -->
+      <section class="exercices">
+        <h2>Exercices &amp; Cours</h2>
+        <div class="html_css">
+          <h3>HTML &amp; CSS</h3>
+          <p>Pour vous aider à réveiller votre créativité, je vous propose de vous entraîner avec les exercices suivants. Il y a là des images et des vidéos pouvant vous guider dans votre programmation.
+            Vous disposez également ici de cours et exercies en pdf pour vous accompagner.  
+          </p>
+          <div class="Exercices">
+            <a href="Videos/video1.mp4"><img src="Photos/photo1.jpg" alt="Exercice 1">Exercice 1</a>
+            <a href="Videos/video2.mp4"><img src="Photos/photo2.jpg" alt="Exercice 2">Exercice 2</a>
+            <a href="Videos/video3.mp4"><img src="Photos/photo3.jpg" alt="Exercice 3">Exercice 3</a>
+            <a href="Photos/photo4.jpg"><img src="Photos/photo4.jpg" alt="Exercice 4">Exercice 4</a>
+            <a href="Cours/courhtml&css.pdf"><img src="Photos/cour1.jpg" alt="Cours HTML&CSS">Cours HTML&amp;CSS</a>
+            <div class="fin"><a href="exercices&cours.html#exohtml">Découvrir plus</a></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="exercices">
+        <div class="html_css">
+          <h3> Python</h3>
+          <p>Ici vous disposer également d'images , de vidéos ainsi que de  cours, exercices en versions pdf pour vous accompagner dans votre cursus. 
+          </p>
+          <div class="Exercices">
+            <a href="Videos/py1.mp4"><img src="Photos/py1.png" alt="Exercice 1">Exercice 1</a>
+            <a href="Videos/py2.mp4"><img src="Photos/py1.png" alt="Exercice 2">Exercice 2</a>
+            <a href="Videos/py3.mp4"><img src="Photos/py3.png" alt="Exercice 3">Exercice 3</a>
+            <a href="Videos/py4.mp4"><img src="Photos/py4.png" alt="Exercice 3">Exercice 4</a>
+            <a href="Photos/capture11.jpg"><img src="Photos/capture11.jpg" alt="Exercice python">Exercice 5</a>
+            <a href="Cours/courpython.pdf"><img src="Photos/cour3.jpg" alt="Cours Python">Cours python</a>
+            <div class="fin"><a href="exercices&cours.html#exopython">Découvrir plus</a></div>
+          </div>
+        </div>
+      </section>
+
+          <section class="exercices">
+        <div class="html_css">
+          <h3> JavaScript</h3>
+          <p>Ici  vous disposer  de  cours  en versions pdf pour vous accompagner dans votre apprentissage mes ami(e)s. 
+          </p>
+          <div class="Exercices">
+            <a href="Cours/courjavascript.pdf"><img src="Photos/cour5.jpg" alt="Cours JS">Cours Javascript</a>
+            <div class="fin"><a href="exercices&cours.html">Découvrir plus</a></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="exercices">
+        <div class="html_css">
+          <h3> Php</h3>
+          <p>Ici également les ami(e)s vous avez des images , des vidéos ainsi que de  cours, exercices en versions pdf pour vous accompagner dans votre apprentissage. 
+          </p>
+          <div class="Exercices">
+            <a href="Videos/php1.mp4"><img src="Photos/php.png" alt="Exercice 1">Exercice 1</a>
+            <a href="Videos/php2.mp4"><img src="Photos/php.png" alt="Exercice 2">Exercice 2</a>
+            <a href="Videos/php3.mp4"><img src="Photos/php.png" alt="Exercice 3">Exercice 3</a>
+            <a href="Videos/php4.mp4"><img src="Photos/php.png" alt="Exercice 3">Exercice 4</a>
+            <a href="Cours/courphp.pdf"><img src="Photos/cour2.jpg" alt="Cours PHP">Cours PHP</a>
+            <div class="fin"><a href="exercices&cours.html#exophp">Découvrir plus</a></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+<footer>Fait avec ❤️ par <b>Evrard</b></footer>
+  <script>
+    const el = document.getElementById('typed-text');
+    const word = 'distraction';
+    let i = 0;
+    el.textContent = '';
+    const type = () => {
+      if (i <= word.length) {
+        el.textContent = word.slice(0, i++);
+        setTimeout(type, 110);
+      }
+    };
+    setTimeout(type, 800);
+  </script>
+</body>
+</html>

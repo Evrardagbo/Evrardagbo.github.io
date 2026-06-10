@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>À propos – Evrard AGBO</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --rose:#e91e8c;--rose-light:#f472b6;--rose-soft:#fce4f3;
+      --rose-dark:#c2185b;--purple:#9b59b6;--bg:#fff5fb;
+      --card:#fff;--text:#3a1a2e;--sub:#b06090;
+      --rose: #f472b6;
+      --rose-clair: #fce7f3;
+      --rose-card: #f9a8d4;
+      --jaune: #facc15;
+      --jaune-fonce: #ca8a04;
+      --blanc: #ffffff;
+      --texte: #1e1b4b;
+      --bg: linear-gradient(160deg, #fce7f3 0%, #fff9c4 50%, #e0f2fe 100%);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      background-attachment: fixed;
+      color: var(--texte);
+      min-height: auto;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: #ff6eb4;
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      gap: 10px;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 3px 10px rgba(255,110,180,0.4);
+    }
+    .nav-logo { font-size: 1.1rem; font-weight: 900; color: white; line-height: 1.2; margin-right: 6px; }
+    .nav-logo span { color: #ffe066; display: block; }
+    nav a {
+      text-decoration: none;
+      background: #ffe066;
+      color: #333;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 8px 16px;
+      border-radius: 50px;
+      transition: transform 0.2s, background 0.2s;
+    }
+    nav a:hover { transform: scale(1.07); background: #ffd700; }
+    nav a.active { background: white; color: #ff6eb4; }
+
+    /* ── HERO ── */
+    .hero {
+      text-align: center;
+      padding: 56px 20px 36px;
+      animation: fadeDown .7s ease both;
+    }
+    .hero h1 {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(2rem, 7vw, 3.6rem);
+      color: var(--jaune);
+      text-shadow: 3px 3px 0 var(--jaune-fonce);
+      letter-spacing: 2px;
+    }
+    .hero .subtitle {
+      margin-top: 10px;
+      font-size: 1.1rem;
+      color: var(--rose);
+      font-weight: 700;
+    }
+
+    /* ── PHOTO ── */
+    .photo-wrap {
+      display: flex;
+      justify-content: center;
+      margin: 28px auto 0;
+    }
+    .photo-ring {
+      width: 150px; height: 150px;
+      border-radius: 50%;
+      border: 6px solid var(--jaune);
+      box-shadow: 0 0 0 6px var(--rose-card), 0 8px 32px rgba(244,114,182,.35);
+      overflow: hidden;
+      background: var(--rose-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      animation: popIn .6s .3s ease both;
+    }
+    .photo-ring img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+
+    /* ── CARDS CONTAINER ── */
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 20px 16px 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .card {
+      background: var(--rose-card);
+      border-radius: 22px;
+      padding: 28px 26px;
+      box-shadow: 0 4px 24px rgba(244,114,182,.2);
+      animation: fadeUp .6s ease both;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -30px; right: -30px;
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.25);
+    }
+
+    .card h2 {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.5rem;
+      color: var(--jaune);
+      text-shadow: 1px 2px 0 var(--jaune-fonce);
+      margin-bottom: 14px;
+    }
+    .card p {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: #fff;
+      font-weight: 600;
+    }
+    .card p + p { margin-top: 10px; }
+
+    /* skills badges */
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .badge {
+      background: var(--jaune);
+      color: var(--texte);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: .9rem;
+      box-shadow: 2px 3px 0 var(--jaune-fonce);
+      transition: transform .2s;
+    }
+    .badge:hover { transform: scale(1.08) rotate(-2deg); }
+
+    /* stats */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .stat-box {
+      background: rgba(255,255,255,.3);
+      border-radius: 16px;
+      padding: 16px 10px;
+      text-align: center;
+    }
+    .stat-box .num {
+      font-family: 'Fredoka One', cursive;
+      font-size: 2rem;
+      color: var(--jaune);
+      text-shadow: 1px 2px 0 var(--jaune-fonce);
+    }
+    .stat-box .label {
+      font-size: .8rem;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 4px;
+    }
+
+    /* quote */
+    .quote-card {
+      background: linear-gradient(135deg, var(--jaune) 0%, #fde68a 100%);
+      border-radius: 22px;
+      padding: 28px 26px;
+      text-align: center;
+      box-shadow: 0 4px 24px rgba(250,204,21,.35);
+      animation: fadeUp .6s .2s ease both;
+    }
+    .quote-card blockquote {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(1.1rem, 4vw, 1.5rem);
+      color: var(--texte);
+      line-height: 1.5;
+    }
+    .quote-card cite {
+      display: block;
+      margin-top: 12px;
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--rose);
+    }
+
+    /* CTA */
+    .cta {
+      text-align: center;
+      padding: 16px 0 8px;
+      animation: fadeUp .6s .4s ease both;
+    }
+    .cta a {
+      display: inline-block;
+      background: var(--jaune);
+      color: var(--texte);
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.2rem;
+      padding: 14px 36px;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 4px 5px 0 var(--jaune-fonce);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .cta a:hover {
+      transform: translateY(-3px);
+      box-shadow: 4px 8px 0 var(--jaune-fonce);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes popIn {
+      0%   { opacity: 0; transform: scale(.5); }
+      80%  { transform: scale(1.08); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    footer{background:linear-gradient(135deg,var(--rose-dark),var(--purple));color:rgba(255,255,255,.8);text-align:center;padding:16px;font-size:.83rem;margin-top:10px}
+    footer b{color:#ffe0f5}
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">site <span>Web</span></div>
+    <a href="index.html">Accueil</a>
+    <a href="projet.html">Projet</a>
+    <a href="voir_plus.html">À propos</a>
+    <a href="exercices&cours.html">Exercices et Cours</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>À propos de moi 😇</h1>
+    <p class="subtitle">Étudiant • Développeur en herbe • Passionné du web</p>
+  </div>
+
+  <!-- PHOTO -->
+  <div class="photo-wrap">
+    <div class="photo-ring"><a href="image3.jpeg">
+      <img src="image3.jpeg" alt="Evrard AGBO"
+           onerror="this.style.display='none';this.parentElement.innerHTML='🧑🏾‍💻';" /></a>
+    </div>
+  </div>
+
+  <!-- CARDS -->
+  <div class="container">
+
+    <!-- Présentation -->
+    <div class="card">
+      <h2>👋 Qui suis-je ?</h2>
+      <p>
+        Je m'appelle <strong>Evrard AGBO</strong>, étudiant passionné de programmation et de développement web.
+        Depuis que j'ai découvert le monde du code, je n'ai plus pu m'arrêter — chaque ligne que j'écris est
+        pour moi une nouvelle aventure, une nouvelle façon de donner vie à des idées.
+      </p>
+      <p>
+        Ce site web est mon terrain d'expression : un espace où je partage mes apprentissages,
+        mes projets concrets et mes ressources pour aider d'autres jeunes comme moi à franchir le pas vers la programmation.
+        Si tu es ici, c'est que toi aussi, tu as la curiosité qu'il faut pour apprendre. Alors bienvenue ! 🚀
+      </p>
+    </div>
+
+    <!-- Langages maîtrisés -->
+    <div class="card">
+      <h2>💻 Mes langages & outils</h2>
+      <p>
+        Au fil de mes études et de mes projets personnels, j'ai eu la chance d'explorer plusieurs
+        langages et technologies du web. Voici ceux avec lesquels je travaille régulièrement :
+      </p>
+      <div class="badges">
+        <span class="badge">HTML5</span>
+        <span class="badge">CSS3</span>
+        <span class="badge">PHP</span>
+        <span class="badge">MySQL</span>
+        <span class="badge">Python</span>
+        <span class="badge">JavaScript</span>
+        <span class="badge">VS Code</span>
+        <span class="badge">phpMyAdmin</span>
+        <span class="badge">EasyPHP</span>
+      </div>
+    </div>
+
+    <!-- Ce que j'ai appris -->
+    <div class="card">
+      <h2>📚 Mon parcours d'apprentissage</h2>
+      <p>
+        J'ai commencé par le <strong>HTML</strong> et le <strong>CSS</strong>, ces deux piliers incontournables
+        du web. Grâce à eux, j'ai appris à structurer et à embellir des pages web, à jouer avec les couleurs,
+        les mises en page et les animations pour créer des interfaces agréables à regarder.
+      </p>
+      <p>
+        Ensuite est venu le <strong>PHP</strong>, un langage qui m'a ouvert les portes du développement côté serveur.
+        Avec PHP et <strong>MySQL</strong>, j'ai pu créer des applications dynamiques : gestion de clients,
+        de commandes, formulaires interactifs — des projets concrets qui m'ont énormément appris.
+      </p>
+      <p>
+        Le <strong>Python</strong> est venu compléter ma boîte à outils. Langage polyvalent et puissant,
+        il m'a permis d'aller au-delà du web : traitement de données, automatisation, et bien plus encore.
+        Chaque nouveau langage que j'apprends me donne envie d'en découvrir un autre !
+      </p>
+    </div>
+
+    <!-- Ce que propose le site -->
+    <div class="card">
+      <h2>🌐 Ce que tu trouveras sur ce site</h2>
+      <p>
+        Ce site n'est pas qu'un simple portfolio — c'est une ressource vivante, construite
+        pour toi, mon camarade étudiant, qui cherches à te lancer dans le monde du développement web.
+      </p>
+      <p>
+        📝 <strong>Exercices et Cours :</strong> des exercices pratiques et des explications claires
+        sur HTML, CSS, PHP, MySQL et Python. Des contenus pensés pour aller de zéro à un niveau fonctionnel, étape par étape.
+      </p>
+      <p>
+        🛠️ <strong>Projets :</strong> tu pourras explorer mes réalisations concrètes — des mini-applications
+        web que j'ai construites moi-même, avec leur code, leurs explications et les problèmes que j'ai dû résoudre.
+        Ces projets sont la preuve que même un étudiant peut créer des choses utiles et fonctionnelles.
+      </p>
+      <p>
+        💡 <strong>Inspiration :</strong> si tu doutes de ta capacité à apprendre la programmation,
+        ce site est là pour te montrer que c'est possible. Je suis la preuve vivante qu'avec de la curiosité
+        et de la persévérance, on peut créer des projets dont on
+         peut être fier.Et surtout ne pense pas que parceque tu n'as pas un portatif tu ne peut pas coder non , je te le répète
+          il te suffit de telecharger à partir de play store l'application <mark>Editeur Spck</mark> pour html, JavaScript et css et aussi il y a<mark>Pydroid 3</mark> pour coder en python.
+      </p>
+    </div>
+
+    <!-- Stats fun -->
+    <div class="card">
+      <h2>🎯 En chiffres</h2>
+      <div class="stats">
+        <div class="stat-box">
+          <div class="num">3+</div>
+          <div class="label">Langages web maîtrisés</div>
+        </div>
+        <div class="stat-box">
+          <div class="num">5+</div>
+          <div class="label">Projets réalisés</div>
+        </div>
+        <div class="stat-box">
+          <div class="num">∞</div>
+          <div class="label">Passion pour le code</div>
+        </div>
+        <div class="stat-box">
+          <div class="num">100%</div>
+          <div class="label">Fait avec ❤️</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mon ambition -->
+    <div class="card">
+      <h2>🔭 Mon ambition</h2>
+      <p>
+        Demain, je veux être un développeur web complet, capable de concevoir des applications robustes
+        de A à Z — de l'interface utilisateur jusqu'à la base de données.
+        Je veux aussi continuer à partager mes connaissances, car je crois profondément
+        que <strong>l'éducation numérique est une chance</strong> que chacun mérite d'avoir.
+      </p>
+      <p>
+        Ce site grandira avec moi : de nouveaux cours, de nouveaux projets, de nouvelles idées.
+        Si tu reviens régulièrement, tu trouveras toujours quelque chose de nouveau à apprendre ou à découvrir.
+        Le monde de la programmation est vaste, instructif et plein de surprises —
+        <strong>embarque avec moi dans cette aventure ! 😇</strong>
+      </p>
+    </div>
+
+    <!-- Citation -->
+    <div class="quote-card">
+      <blockquote>
+        "Le meilleur moment pour commencer à programmer, c'était hier.<br />
+        Le deuxième meilleur moment, c'est maintenant." 💻
+      </blockquote>
+      <cite>— Evrard AGBO</cite>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta">
+      <a href="exercices&cours.html">📖 Voir mes cours & exercices</a></div>
+      <div class="cta">
+      <a href=" https://openclassrooms.com/fr/courses/1603881-creez-votre-site-web-avec-html5-et-css3/8061253-tirez-un-maximum-de-ce-cours"><span class="pill">📚 Cours gratuits</span></a>
+    </div>
+
+  </div><!-- /container -->
+  <footer>Fait avec ❤️ par <b>Evrard</b> </footer>
+
+</body>
+</html>

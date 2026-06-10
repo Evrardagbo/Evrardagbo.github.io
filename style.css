@@ -1,0 +1,147 @@
+/* Exemple pour écran petit (téléphone) */
+@media (max-width: 600px) {
+  .contenu {
+    flex-direction: column;
+  }
+}
+.container{
+  display: flex;
+  flex-direction: column;
+ background-image: url('backimage.svg');
+background-size: cover;
+background-position: center;
+background-attachment: fixed;
+  /* hauteur de ton header */
+   
+}
+
+h1{
+  font-family: 'Courier New', Courier, monospace;
+  text-align: center;
+  font-size: 55px;
+}
+.profil-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  background: rgba(244, 114, 182, 0.92);
+  border: 1px solid rgba(212, 175, 55, 0.3); /* bordure dorée subtile */
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  border-radius: 20px;
+  padding: 16px;
+  margin: 20px 10px;
+  font-family: 'Nunito',sans-serif
+}
+
+.profil-texte {
+  flex: 1; /* prend tout l'espace restant */
+  color: white;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.profil-texte a {
+  color: #6fa8dc;
+  display: block;
+  margin-top: 8px;
+}
+
+
+.profil-photo {
+  flex-shrink: 0; /* empêche la photo de rétrécir */
+  width: 130px;
+  height: 130px;
+}
+
+.profil-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;       /* recadre proprement */
+  border-radius: 50%;
+  border: 2px solid #D4AF37; /* bordure dorée */
+  transition: transform 0.3s;
+}
+
+.html_css{
+  background: rgba(244, 114, 182, 0.92);
+  border-radius: 20px;
+ border: solid 1px;
+  border: 1px solid rgba(212, 175, 55, 0.3); /* bordure dorée subtile */
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  color: white;
+  margin: 20px 10px;
+  padding:10px ;
+  
+  
+}
+ /* GRID */
+    .Projets{ display: grid; grid-template-columns: 1fr 1fr; gap: 20px 14px; }
+    .cap{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+   .cap {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid white;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+      background: #ffe6f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .cap:hover{ transform: scale(1.08); box-shadow: 0 8px 22px rgba(0,0,0,0.3); }
+    .cap .img { width: 100%; height: 100%; object-fit: cover; }
+    .cap{ font-size: 2.8rem; }
+    .cap { font-size: 1rem; font-weight: 800; color: #003aff; text-decoration: underline; text-underline-offset: 3px; }
+    .cap:hover .cap { color: #0022cc; }
+
+.Projets{
+  display: grid;
+  padding: 10px;
+}
+.Projets a{
+  display: flex;
+flex-direction: column;
+align-items: center;
+gap: 6px;
+text-align: center;
+}
+h3,h2{
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.cap:hover{
+  transform: scale(1.1);   /* zoom au survol */
+}
+.Exercices{
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 colonnes */
+  gap: 15px;
+  padding: 10px;
+}
+.Exercices a{
+  display: flex;
+flex-direction: column;
+align-items: center;
+gap: 6px;
+text-align: center;
+}
+.Exercices img{
+  width: 100%;
+  max-width: 120px;
+  height: 100px;
+  object-fit: cover;       /* recadre proprement */
+  border-radius:10px ;
+  border: 2px solid #D4AF37; /* bordure dorée */
+  transition: transform 0.3s;
+}
