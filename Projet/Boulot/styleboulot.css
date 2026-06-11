@@ -1,0 +1,56 @@
+/* Exemple pour écran petit (téléphone) */
+@media (max-width: 600px) {
+    .contenu {
+        flex-direction: column;
+    }
+}
+body {
+    background-color:white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 110vh;
+    font-family: 'Times New Roman', Times, serif, sans-serif;
+}
+
+.pyramide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Style commun */
+.niveau {
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+    font-weight: bold;
+    clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+}
+
+/* Largeurs et couleurs */
+.principes {
+    width: 220px;
+    background-color: #f1c40f;
+}
+
+.regles {
+    width: 260px;
+    background-color: #e74c3c;
+}
+
+.contributeurs {
+    width: 300px;
+    background-color: #a9711b;
+}
+
+.contenu {
+    width: 340px;
+    background-color: #7a8b00;
+}
+
+.lecteurs {
+    width: 380px;
+    background-color: #d16ba5;
+}
