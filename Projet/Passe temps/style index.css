@@ -1,0 +1,36 @@
+/* Exemple pour écran petit (téléphone) */
+@media (max-width: 600px) {
+    .contenu {
+        flex-direction: column;
+    }
+}
+body,header,main,footer{
+    font-family:Times New roman, sans-serif ;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    justify-content: center;
+}
+h1{
+    color: aqua;
+}
+ul{
+    color: brown;
+    list-style-type:none;
+}
+.compétence{
+    margin: 1%;
+    padding: 1%;
+    border: 0,5px solid blue;
+    box-shadow:0px 0px 10px;
+}
+a:hover{
+    color: cadetblue;
+    background-color: antiquewhite;
+    font-family: times new roman,serif ;
+}
+.btn{
+    text-decoration: dashed;
+    color: chocolate;
+}

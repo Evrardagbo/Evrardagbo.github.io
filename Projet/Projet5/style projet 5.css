@@ -1,0 +1,13 @@
+/* Exemple pour écran petit (téléphone) */
+@media (max-width: 600px) {
+    .contenu {
+        flex-direction: column;
+    }
+}
+@import url(https://fonts.googleapis.com/css2?family¤Poppins:wght@200;300;400;500;600;700&d);
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins",sans-serif;
+}

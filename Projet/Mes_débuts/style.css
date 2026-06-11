@@ -1,0 +1,61 @@
+P,h1,ul
+{  color: rgb(255, 0, 0);  }
+p,h1,ul
+{font-size: 20px}
+h1 
+{font-size:40px}
+p,h1,ul
+{font-family:"Times New Roman", Times, serif}
+p,h1,em,ul
+{font-style:oblique }
+p,h1,em,ul
+{font-weight:bold}
+body
+{opacity:0,9}
+body
+{background-image:url("evrard.jpg")}
+h3
+{border: 10px blue dotted;
+border-right: 6px black ridge;
+border-radius:10px}
+h3
+{background-color:gold;
+box-shadow: 10px 10px 10px black inset;
+text-shadow: 6px 5px 4px black}
+a:hover
+{text-decoration:underline;
+color:black;
+font-size:italic}
+p:hover
+{color:blueviolet;
+font-size:italic}
+h3:hover
+{color:blueviolet;
+font-size:italic}
+a:active
+{background-image: url("image2.jpg");}
+h3{width:90%;margin-bottom:150px;
+height: 170px;
+  overflow: auto;
+}
+nav{display:inline-block;width: 150px;border:1px solid black;vertical-align:top;}
+section{border: 2px solid white;display:inline-block}
+a{
+right:0px;bottom:1px;}
+/* Exemple pour écran petit (téléphone) */
+@media (max-width: 600px) {
+  .contenu {
+    flex-direction: column;
+  }
+}
+body{
+  display: flex;
+  flex-direction: column;
+}
+.ba{
+  width: 50%;
+}
+.ab{
+  width:25%;
+  float: right;
+}
